@@ -18,20 +18,20 @@ class Manuipulate_sdcard():
         self.device = self.client.device(self.serial)
 
 
-    def all_devices(self):
-        print('\nList of Connected Devices.')
+    # def all_devices(self):
+    #     print('\nList of Connected Devices.')
 
-        for device in self.client.devices():
-            print('\t', device.serial)
-
-
-    def get_version(self):
-        print('\nVersion:', self.client.version())
+    #     for device in self.client.devices():
+    #         print('\t', device.serial)
 
 
-    def disconnect(self):
-        self.client.remote_disconnect(self.serial)
-        print('\nADB Disconnected.')
+    # def get_version(self):
+    #     print('\nVersion:', self.client.version())
+
+
+    # def disconnect(self):
+    #     self.client.remote_disconnect(self.serial)
+    #     print('\nADB Disconnected.')
 
 
     def screenshot(self, ss):
@@ -42,12 +42,12 @@ class Manuipulate_sdcard():
             print('\nScreenshot saved.')
 
 
-    def install_apk(self, apk):
-        apk_path = f"static/{apk}"
+    # def install_apk(self, apk):
+    #     apk_path = f"static/{apk}"
 
-        print('\nInstalling APK ...')
-        self.device.install(apk_path)
-        print('APK Installed.')
+    #     print('\nInstalling APK ...')
+    #     self.device.install(apk_path)
+    #     print('APK Installed.')
 
 
     # def push_file(self, push_start_file='static/screenshot.png', push_stop_path='Download/Telegram/static/'):
@@ -57,9 +57,9 @@ class Manuipulate_sdcard():
     #     print(f'\nFile "{push_start_file}" Pushed.')
 
 
-    def push_folder(self, path='Download/'):
-        self.device.push("static/", f"/sdcard/{path}/static/")
-        print(f'\nFolder "{path}/static" Pushed.')
+    # def push_folder(self, path='Download/'):
+    #     self.device.push("static/", f"/sdcard/{path}/static/")
+    #     print(f'\nFolder "{path}/static" Pushed.')
 
 
     def pull_file(self, file='screenshot.png', path='Download/'):        

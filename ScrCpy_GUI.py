@@ -1,10 +1,4 @@
 
-# https://github.com/imvickykumar999/ADB-Screen-Copy/releases
-# pyinstaller --onefile ScrCpy_GUI.py
-
-# https://github.com/Andereoo/TkinterWeb/issues/89#issue-1994361750
-# pip install tkinterweb -U
-
 from tkinter import *
 import os, json, threading
 from tkinter import filedialog
@@ -72,8 +66,17 @@ def task2():
 
         push_start_file = filedialog.askopenfilename()
         file = os.path.basename(push_start_file)
-        device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
 
+        if file.split('.')[-1] in ['apk', ]:
+            print(f'\n>>> Installing {file}...')
+            device.install(push_start_file)
+            print(f'\n>>>\tInstalled.')
+
+        else:
+            print(f'\n>>> Sending {file} ...')
+            device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
+            print(f'\n>>>\tSent.')
+ 
     while True:
         root = Tk()
         root.geometry("300x600")
@@ -84,6 +87,7 @@ def task2():
             bg = PhotoImage(file = "src/wallpaper.png") 
             label = Label(root, image = bg) 
             label.place(x = 0, y = 0) 
+
         except:
             frame = HtmlFrame(root)
             frame.load_website("https://github.com/imvickykumar999/ADB-Screen-Copy/blob/main/Projects/TkinterGUI/Executable/wallpaper.png?raw=true")
@@ -151,3 +155,13 @@ if __name__ == "__main__":
   
     t1.join()
     t2.join()
+
+'''
+>>> adb shell ls -R /sdcard/Download/Telegram/static/
+
+/sdcard/Download/Telegram/static:
+    Gabbar Bhi Nachega (feat. Nidhi Sharma)69.m4a.mp3
+    example.apk
+    image_2023-11-08_16-33-55.png
+    vix.png
+'''
