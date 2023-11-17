@@ -9,6 +9,7 @@ from tkinter import *
 import os, json, threading
 from tkinter import filedialog
 from tkinterweb import HtmlFrame
+from ppadb.client import Client as AdbClient
 
 ip = input('''
 ----------------------------------------
@@ -65,9 +66,13 @@ def task2():
         key = key.split(' : ')[0]
         os.system(f'adb -s {ip} shell input keyevent {key}')
 
-    def UploadAction(event=None):
-        filename = filedialog.askopenfilename()
-        print('Selected:', filename)
+    def UploadAction(push_stop_path='Download/Telegram/static/'):
+        client = AdbClient(host="127.0.0.1", port=5037)
+        device = client.device(f'{ip}:5555')
+
+        push_start_file = filedialog.askopenfilename()
+        file = os.path.basename(push_start_file)
+        device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
 
     while True:
         root = Tk()
@@ -100,7 +105,7 @@ def task2():
 
             num_list.place(relx=0.5, rely=0.4, anchor='center')
             get_num_btn = Button(root, bg='green', text="Run ADB", command=fun)
-            get_num_btn.place(relx=0.5, rely=0.1, anchor='center')
+            get_num_btn.place(relx=0.5, rely=0.55, anchor='center')
 
         except:
             rely3 = 0.5
@@ -111,13 +116,14 @@ def task2():
             btn1 = Entry(root, textvariable = event)
 
             btn1.insert(0, '209') # Open Music App
-            btn1.place(relx=0.5, rely=0.1, anchor='center')
+            btn1.place(relx=0.5, rely=0.2, anchor='center')
 
-            btn2 = Button(root, bg='green', text = 'Keyevent', command=lambda: submit(event.get()))
-            btn2.place(relx=0.5, rely=0.2, anchor='center')
+            btn2 = Button(root, bg='green', text = 'Keyevent', command = lambda: submit(event.get()))
+            btn2.place(relx=0.5, rely=0.3, anchor='center')
 
-        upload = Button(root, text='Open', command=UploadAction)
-        upload.place(relx=0.5, rely=0.4, anchor='center')
+        push_stop_path='Download/Telegram/static/'
+        upload = Button(root, text='Send File', command = lambda: UploadAction(push_stop_path))
+        upload.place(relx=0.5, rely=0.1, anchor='center')
 
         btn3 = Button(root, text="Volume Up", command=volup)
         btn3.place(relx=0.5, rely=rely3, anchor='center')

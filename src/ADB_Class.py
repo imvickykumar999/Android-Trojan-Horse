@@ -50,11 +50,11 @@ class Manuipulate_sdcard():
         print('APK Installed.')
 
 
-    def push_file(self, push_start_file='static/screenshot.png', push_stop_path='Download/Telegram/static/'):
-        file = os.path.basename(push_start_file)
+    # def push_file(self, push_start_file='static/screenshot.png', push_stop_path='Download/Telegram/static/'):
+    #     file = os.path.basename(push_start_file)
         
-        self.device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
-        print(f'\nFile "{push_start_file}" Pushed.')
+    #     self.device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
+    #     print(f'\nFile "{push_start_file}" Pushed.')
 
 
     def push_folder(self, path='Download/'):
@@ -67,29 +67,29 @@ class Manuipulate_sdcard():
         print(f'\nFile "{path}/{file}" Pulled.')
 
 
-if __name__ == '__main__':
-    host, port = "192.168.0.102", 5555
-    sdcard = Manuipulate_sdcard(host, port)
+# if __name__ == '__main__':
+#     host, port = "192.168.0.102", 5555
+#     sdcard = Manuipulate_sdcard(host, port)
 
-    # sdcard.get_version()
-    # sdcard.all_devices()
+#     sdcard.get_version()
+#     sdcard.all_devices()
 
-    # apk = 'example.apk'
-    # sdcard.install_apk(apk)
+#     apk = 'example.apk'
+#     sdcard.install_apk(apk)
 
-    # pullpath = 'Movies/Instagram'
-    # pullfile = 'reels.mp4'
-    # sdcard.pull_file(pullfile, pullpath)
+#     pullpath = 'Movies/Instagram'
+#     pullfile = 'reels.mp4'
+#     sdcard.pull_file(pullfile, pullpath)
 
-    # time.sleep(1)
-    # push_stop_path = 'Download/Telegram/static'
-    push_start_file = 'static/screenshot.png'
+#     time.sleep(1)
+#     push_stop_path = 'Download/Telegram/static'
+#     push_start_file = 'static/screenshot.png'
 
-    sdcard.push_file(push_start_file)
-    # sdcard.push_folder(pushpath)
+#     sdcard.push_file(push_start_file)
+#     sdcard.push_folder(push_stop_path)
 
-    time.sleep(1)
-    ss = 'screenshot.png'
+#     time.sleep(1)
+#     ss = 'screenshot.png'
 
-    sdcard.screenshot(ss)
-    # sdcard.disconnect()
+#     sdcard.screenshot(ss)
+#     sdcard.disconnect()
