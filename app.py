@@ -1,7 +1,7 @@
 
 # from HostTor import VicksTor
-import VicksTor as vix
-vix.run_server('flask')
+# import VicksTor as vix
+# vix.run_server('flask')
 
 from flask import (
     Flask,

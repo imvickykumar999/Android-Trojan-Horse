@@ -5,9 +5,9 @@
 # https://github.com/Andereoo/TkinterWeb/issues/89#issue-1994361750
 # pip install tkinterweb -U
 
-import os, json
-import threading
 from tkinter import *
+import os, json, threading
+from tkinter import filedialog
 from tkinterweb import HtmlFrame
 
 ip = input('''
@@ -33,7 +33,7 @@ def task1():
 
     while True:
         print()
-        os.system(f'scrcpy --tcpip={ip}')
+        os.system(f'scrcpy --tcpip={ip} -r "ScreenRecord/{ip}.mp4"')
 
 
 def task2():
@@ -54,7 +54,7 @@ def task2():
     def submit(x):
         try: 
             if x == '': 
-                os.system('Executable/keyevents.json')
+                os.system('src/keyevents.json')
             else:
                 os.system(f'adb -s {ip} shell input keyevent {x}')
         except Exception as e: 
@@ -65,6 +65,10 @@ def task2():
         key = key.split(' : ')[0]
         os.system(f'adb -s {ip} shell input keyevent {key}')
 
+    def UploadAction(event=None):
+        filename = filedialog.askopenfilename()
+        print('Selected:', filename)
+
     while True:
         root = Tk()
         root.geometry("300x600")
@@ -72,7 +76,7 @@ def task2():
         root.config(bg="gray")
 
         try:
-            bg = PhotoImage(file = "Executable/wallpaper.png") 
+            bg = PhotoImage(file = "src/wallpaper.png") 
             label = Label(root, image = bg) 
             label.place(x = 0, y = 0) 
         except:
@@ -86,7 +90,7 @@ def task2():
             rely5 = 0.9
 
             num_list = Listbox(root, height=15, width=30)
-            with open('Executable/keyevents.json') as f:
+            with open('src/keyevents.json') as f:
                 data = json.load(f)
 
             for i in data['key_events']:
@@ -111,6 +115,9 @@ def task2():
 
             btn2 = Button(root, bg='green', text = 'Keyevent', command=lambda: submit(event.get()))
             btn2.place(relx=0.5, rely=0.2, anchor='center')
+
+        upload = Button(root, text='Open', command=UploadAction)
+        upload.place(relx=0.5, rely=0.4, anchor='center')
 
         btn3 = Button(root, text="Volume Up", command=volup)
         btn3.place(relx=0.5, rely=rely3, anchor='center')
