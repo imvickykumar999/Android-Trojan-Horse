@@ -34,7 +34,7 @@ def task1():
 
     while True:
         print()
-        os.system(f'scrcpy --tcpip={ip} -r "ScreenRecord/{ip}.mp4"')
+        os.system(f'scrcpy --tcpip={ip}')
 
 
 def task2():
