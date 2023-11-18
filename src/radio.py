@@ -1,20 +1,42 @@
 
 from tkinter import *
+import os
 
 root = Tk()
-var = IntVar()
+var = StringVar()
+
+path = '/sdcard/Download/'
+output = os.popen(f'adb shell ls -p {path}')
+output = output.read().split('\n')[:-1]
+
+event = StringVar()
+btn = Entry(root, textvariable = event)
+
+btn.insert(0, path)
+btn.pack()
 
 def sel():
-   selection = "You selected the option " + str(var.get())
-   label.config(text = selection)
+   global path
+   if str(var.get())[-1] == '/':
+      event.set(path + str(var.get()))
 
-R1 = Radiobutton(root, text="Option 1", variable=var, value=1, command=sel)
-R1.pack( anchor = W )
-R2 = Radiobutton(root, text="Option 2", variable=var, value=2, command=sel)
-R2.pack( anchor = W )
-R3 = Radiobutton(root, text="Option 3", variable=var, value=3, command=sel)
-R3.pack( anchor = W)
+      subpath = str(var.get())
+      path += subpath
+      output = os.popen(f'adb shell ls -p {path}')
+      output = output.read().split('\n')[:-1]
 
-label = Label(root)
-label.pack()
+      subdir = str(var.get()).split('/')[0] + '/'
+      submit = Button(root, text=subdir, command=lambda: bullets(output))
+      submit.pack(anchor = N)
+   else:
+      event.set(str(var.get()))
+
+def bullets(output):   
+   for i in output:
+      R1 = Radiobutton(root, text=i, variable=var, value=i, command=sel)
+      var.set(None)
+      R1.pack(anchor = W)
+
+submit = Button(root, text="sdcard/", command=lambda: bullets(output))
+submit.pack()
 root.mainloop()
