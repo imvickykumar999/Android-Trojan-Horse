@@ -62,17 +62,18 @@ def task2():
 
     def pull_file(file="screenshot.png", pull_start_path='Download/Telegram/static/'):        
         client = AdbClient(host="127.0.0.1", port=5037)
-        
         device = client.device(f'{ip}:5555')
+
         file = dir_list.get(dir_list.curselection()[0])
+        pull_start_path = entry.get()
 
         try:
             print(f'\n>>> Receiving {file} ...')
             device.pull(f"/sdcard/{pull_start_path}/{file}", f"ScreenRecord/{file}")
-            print(f'\tRecieved Successfully.')
+            print(f'\tReceived Successfully.')
 
         except:
-            print(f'\tFile NOT Recieved.')
+            print(f'\tFile NOT Received.')
             pass
 
     def push_file(push_stop_path='Download/Telegram/static/'):
@@ -80,6 +81,8 @@ def task2():
         device = client.device(f'{ip}:5555')
 
         push_start_file = filedialog.askopenfilename()
+        push_stop_path = entry.get()
+
         try:
             file = os.path.basename(push_start_file)
 
@@ -102,22 +105,19 @@ def task2():
         root.title("ScrCpy GUI")
         root.config(bg="gray")
 
-        # try:
-        #     bg = PhotoImage(file = "static/wallpaper.png") 
-        #     label = Label(root, image = bg) 
-        #     label.place(x = 0, y = 0) 
+        event = StringVar()
+        dir_list = Listbox(root, height=7, width=30)
+        dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
-        # except:
-        #     frame = HtmlFrame(root)
-        #     frame.load_website("https://github.com/imvickykumar999/ADB-Screen-Copy/blob/main/Projects/TkinterGUI/Executable/wallpaper.png?raw=true")
-        #     frame.pack(fill="both", expand=True)
+        entry = Entry(root, textvariable = event)
+        entry.place(relx=0.5, rely=0.14, anchor='center')
 
         try:
-            rely3 = 0.73
+            rely3 = 0.8
             rely4 = 0.8
             rely5 = 0.9
 
-            num_list = Listbox(root, height=5, width=25)
+            num_list = Listbox(root, height=8, width=30)
             with open('static/keyevents.json') as f:
                 data = json.load(f)
 
@@ -126,9 +126,9 @@ def task2():
                 k = j.split('adb shell input keyevent ')
                 num_list.insert(k[1], f'{k[1]} : {i.split("key_")[1]}')
 
-            num_list.place(relx=0.5, rely=0.47, anchor='center')
-            get_num_btn = Button(root, bg='green', text="Run ADB", command=fun)
-            get_num_btn.place(relx=0.5, rely=0.57, anchor='center')
+            num_list.place(relx=0.5, rely=0.6, anchor='center')
+            get_num_btn = Button(root, bg='light green', text="Run ADB", command=fun)
+            get_num_btn.place(relx=0.5, rely=0.67, anchor='center')
 
         except:
             rely3 = 0.7
@@ -141,32 +141,39 @@ def task2():
             btn1.insert(0, '209') # Open Music App
             btn1.place(relx=0.5, rely=0.5, anchor='center')
 
-            btn2 = Button(root, bg='green', text = 'Keyevent', command = lambda: submit(event.get()))
+            btn2 = Button(root, bg='light green', text = 'Keyevent', command = lambda: submit(event.get()))
             btn2.place(relx=0.5, rely=0.55, anchor='center')
 
-        push_stop_path='Download/Telegram/static/'
-        upload = Button(root, text='Send File', command = lambda: push_file(push_stop_path))
+        path='Download/Telegram/static/'
+        event.set(path)
+
+        upload = Button(root, bg='yellow', text='Send File', command = lambda: push_file(path))
         upload.place(relx=0.5, rely=0.08, anchor='center')
 
-        pull_start_path='Download/Telegram/static/'
-        output = os.popen(f'adb shell ls -p /sdcard/{pull_start_path}')
-        output = output.read().split('\n')[:-1]
+        def on_click():
+            path = event.get()
 
-        dir_list = Listbox(root, height=5, width=25)
-        for i,j in enumerate(output):
-            dir_list.insert(i, j)
+            output = os.popen(f'adb shell ls -p /sdcard/{path}')
+            output = output.read().split('\n')[:-1]
+            dir_list.delete(0, END)
 
-        dir_list.place(relx=0.5, rely=0.25, anchor='center')
-        download = Button(root, text='Recieve File', command = lambda: pull_file(pull_start_path))
-        download.place(relx=0.5, rely=0.35, anchor='center')
+            for i,j in enumerate(output):
+                dir_list.insert(i, j)
+            dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
-        btn3 = Button(root, text="Volume Up", command=volup)
-        btn3.place(relx=0.5, rely=rely3, anchor='center')
+        button = Button(root, bg='light blue', text="Pull File", command=on_click)
+        button.place(relx=0.3, rely=0.43, anchor='center')
 
-        btn4 = Button(root, text="Volume Down", command=voldown)
-        btn4.place(relx=0.5, rely=rely4, anchor='center')
+        download = Button(root, bg='yellow', text='Receive Selected', command = lambda: pull_file(path))
+        download.place(relx=0.62, rely=0.43, anchor='center')
+
+        btn3 = Button(root, text="Volume Up", bg='green', command=volup)
+        btn3.place(relx=0.32, rely=rely3, anchor='center')
+
+        btn4 = Button(root, text="Volume Down", bg='red', command=voldown)
+        btn4.place(relx=0.63, rely=rely4, anchor='center')
         
-        btn5 = Button(root, bg='red', text="Power ON / OFF", command=power)
+        btn5 = Button(root, bg='pink', text="Power ON / OFF", command=power)
         btn5.place(relx=0.5, rely=rely5, anchor='center')
         root.mainloop()
 
@@ -186,38 +193,3 @@ if __name__ == "__main__":
   
     t1.join()
     t2.join()
-
-'''
-# https://stackoverflow.com/a/21725893/11493297
-Option  Description
-
--a  Displays all files.
--b  Displays nonprinting characters in octal.
--c  Displays files by file timestamp.
--C  Displays files in a columnar format (default)
--d  Displays only directories.
--f  Interprets each name as a directory, not a file.
--F  Flags filenames.
--g  Displays the long format listing, but exclude the owner name.
--i  Displays the inode for each file.
--l  Displays the long format listing.
--L  Displays the file or directory referenced by a symbolic link.
--m  Displays the names as a comma-separated list.
--n  Displays the long format listing, with GID and UID numbers.
--o  Displays the long format listing, but excludes group name.
--p  Displays directories with /
--q  Displays all nonprinting characters as ?
--r  Displays files in reverse order.
--R  Displays subdirectories as well.
--t  Displays newest files first. (based on timestamp)
--u  Displays files by the file access time.
--x  Displays files as rows across the screen.
--1  Displays each entry on a line.
-
->>> adb shell ls -p /sdcard/Download/Telegram
-
-    Archive/
-    Reels.apk
-    screenshot.png
-    static/
-'''
