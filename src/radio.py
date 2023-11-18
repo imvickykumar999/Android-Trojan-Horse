@@ -5,38 +5,80 @@ import os
 root = Tk()
 var = StringVar()
 
-path = '/sdcard/Download/'
+Rframe = Frame(root)
+Rframe.pack(side=TOP)
+
+Bframe = Frame(root)
+Bframe.pack(side=TOP, expand=True)
+
+root.geometry("300x600")
+root.title("SDcard Tree")
+
+path = '/sdcard/Download/Telegram/'
 output = os.popen(f'adb shell ls -p {path}')
 output = output.read().split('\n')[:-1]
 
 event = StringVar()
-btn = Entry(root, textvariable = event)
+entry = Entry(root, textvariable = event)
 
-btn.insert(0, path)
-btn.pack()
+def on_click():
+   name = entry.get()
+   os.system(f'adb pull "{name}"')
+
+button = Button(text="Pull File", command=on_click)
+button.pack(side = TOP)
+
+entry.insert(0, path)
+entry.pack(side = TOP)
 
 def sel():
    global path
    if str(var.get())[-1] == '/':
-      event.set(path + str(var.get()))
 
-      subpath = str(var.get())
-      path += subpath
-      output = os.popen(f'adb shell ls -p {path}')
+      subpath = path + str(var.get())
+      output = os.popen(f'adb shell ls -p {subpath}')
+      
       output = output.read().split('\n')[:-1]
-
       subdir = str(var.get()).split('/')[0] + '/'
-      submit = Button(root, text=subdir, command=lambda: bullets(output))
-      submit.pack(anchor = N)
+      
+      fetch = f'{path}/{subdir}'
+      print(fetch)
+      event.set(fetch)
+
+      for widget in Bframe.winfo_children():
+         widget.destroy() 
+
+      Button(
+         Bframe, 
+         pady=5, 
+         padx=10, 
+         text=subdir, 
+         bg="pink",
+         command=lambda: bullets(output)
+      ).pack()
+      
    else:
-      event.set(str(var.get()))
+      subdir = str(var.get()).split('/')
+      fetch = f'{path}/{subdir}/{var.get()}'
+      print(path)
+      event.set(fetch)
 
-def bullets(output):   
+def bullets(output):
+   for widget in Rframe.winfo_children():
+      widget.destroy() 
+
    for i in output:
-      R1 = Radiobutton(root, text=i, variable=var, value=i, command=sel)
+      R1 = Radiobutton(Rframe, text=i, variable=var, value=i, command=sel)
       var.set(None)
-      R1.pack(anchor = W)
+      R1.pack(anchor = 's')
 
-submit = Button(root, text="sdcard/", command=lambda: bullets(output))
-submit.pack()
+Button(
+   root, 
+   pady=5,
+   padx=10, 
+   text=path, 
+   bg="light green",
+   command=lambda: bullets(output)
+).pack()
+
 root.mainloop()
