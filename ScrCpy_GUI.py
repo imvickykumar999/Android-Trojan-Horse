@@ -60,18 +60,16 @@ def task2():
         key = key.split(' : ')[0]
         os.system(f'adb -s {ip} shell input keyevent {key}')
 
-    def pull_file(pull_start_path='Download/Telegram/static/'):        
+    def pull_file(file="screenshot.png", pull_start_path='Download/Telegram/static/'):        
         client = AdbClient(host="127.0.0.1", port=5037)
         device = client.device(f'{ip}:5555')
 
-        output = os.popen(f'adb shell ls -p /sdcard/{pull_start_path}')
-        output = output.read().split('\n')[:-1]
-        print(output)
+        file = dir_list.get(dir_list.curselection()[0])
+        print(file)
 
         try:
-            file = os.path.basename(output)
             print(f'\n>>> Receiving {file} ...')
-            device.pull(f"/sdcard/{pull_start_path}/{file}", f"static/{file}")
+            device.pull(f"/sdcard/{pull_start_path}/{file}", f"ScreenRecord/{file}")
             print(f'\tRecieved Successfully.')
 
         except:
@@ -120,7 +118,7 @@ def task2():
             rely4 = 0.8
             rely5 = 0.9
 
-            num_list = Listbox(root, height=15, width=30)
+            num_list = Listbox(root, height=5, width=25)
             with open('src/keyevents.json') as f:
                 data = json.load(f)
 
@@ -129,7 +127,7 @@ def task2():
                 k = j.split('adb shell input keyevent ')
                 num_list.insert(k[1], f'{k[1]} : {i.split("key_")[1]}')
 
-            num_list.place(relx=0.5, rely=0.42, anchor='center')
+            num_list.place(relx=0.5, rely=0.47, anchor='center')
             get_num_btn = Button(root, bg='green', text="Run ADB", command=fun)
             get_num_btn.place(relx=0.5, rely=0.57, anchor='center')
 
@@ -152,8 +150,17 @@ def task2():
         upload.place(relx=0.5, rely=0.08, anchor='center')
 
         pull_start_path='Download/Telegram/static/'
-        upload = Button(root, text='Recieve File', command = lambda: pull_file(pull_start_path))
-        upload.place(relx=0.5, rely=0.15, anchor='center')
+        output = os.popen(f'adb shell ls -p /sdcard/{pull_start_path}')
+        output = output.read().split('\n')[:-1]
+        print(output)
+
+        dir_list = Listbox(root, height=5, width=25)
+        for i,j in enumerate(output):
+            dir_list.insert(i, j)
+
+        dir_list.place(relx=0.5, rely=0.25, anchor='center')
+        download = Button(root, text='Recieve File', command = lambda: pull_file(pull_start_path))
+        download.place(relx=0.5, rely=0.15, anchor='center')
 
         btn3 = Button(root, text="Volume Up", command=volup)
         btn3.place(relx=0.5, rely=rely3, anchor='center')
