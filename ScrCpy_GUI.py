@@ -49,7 +49,7 @@ def task2():
     def submit(x):
         try: 
             if x == '': 
-                os.system('src/keyevents.json')
+                os.system('static/keyevents.json')
             else:
                 os.system(f'adb -s {ip} shell input keyevent {x}')
         except Exception as e: 
@@ -62,10 +62,9 @@ def task2():
 
     def pull_file(file="screenshot.png", pull_start_path='Download/Telegram/static/'):        
         client = AdbClient(host="127.0.0.1", port=5037)
+        
         device = client.device(f'{ip}:5555')
-
         file = dir_list.get(dir_list.curselection()[0])
-        print(file)
 
         try:
             print(f'\n>>> Receiving {file} ...')
@@ -103,15 +102,15 @@ def task2():
         root.title("ScrCpy GUI")
         root.config(bg="gray")
 
-        try:
-            bg = PhotoImage(file = "src/wallpaper.png") 
-            label = Label(root, image = bg) 
-            label.place(x = 0, y = 0) 
+        # try:
+        #     bg = PhotoImage(file = "static/wallpaper.png") 
+        #     label = Label(root, image = bg) 
+        #     label.place(x = 0, y = 0) 
 
-        except:
-            frame = HtmlFrame(root)
-            frame.load_website("https://github.com/imvickykumar999/ADB-Screen-Copy/blob/main/Projects/TkinterGUI/Executable/wallpaper.png?raw=true")
-            frame.pack(fill="both", expand=True)
+        # except:
+        #     frame = HtmlFrame(root)
+        #     frame.load_website("https://github.com/imvickykumar999/ADB-Screen-Copy/blob/main/Projects/TkinterGUI/Executable/wallpaper.png?raw=true")
+        #     frame.pack(fill="both", expand=True)
 
         try:
             rely3 = 0.73
@@ -119,7 +118,7 @@ def task2():
             rely5 = 0.9
 
             num_list = Listbox(root, height=5, width=25)
-            with open('src/keyevents.json') as f:
+            with open('static/keyevents.json') as f:
                 data = json.load(f)
 
             for i in data['key_events']:
@@ -132,18 +131,18 @@ def task2():
             get_num_btn.place(relx=0.5, rely=0.57, anchor='center')
 
         except:
-            rely3 = 0.6
-            rely4 = 0.7
-            rely5 = 0.9
+            rely3 = 0.7
+            rely4 = 0.8
+            rely5 = 0.95
 
             event = StringVar()
             btn1 = Entry(root, textvariable = event)
 
             btn1.insert(0, '209') # Open Music App
-            btn1.place(relx=0.5, rely=0.3, anchor='center')
+            btn1.place(relx=0.5, rely=0.5, anchor='center')
 
             btn2 = Button(root, bg='green', text = 'Keyevent', command = lambda: submit(event.get()))
-            btn2.place(relx=0.5, rely=0.37, anchor='center')
+            btn2.place(relx=0.5, rely=0.55, anchor='center')
 
         push_stop_path='Download/Telegram/static/'
         upload = Button(root, text='Send File', command = lambda: push_file(push_stop_path))
@@ -152,7 +151,6 @@ def task2():
         pull_start_path='Download/Telegram/static/'
         output = os.popen(f'adb shell ls -p /sdcard/{pull_start_path}')
         output = output.read().split('\n')[:-1]
-        print(output)
 
         dir_list = Listbox(root, height=5, width=25)
         for i,j in enumerate(output):
@@ -160,7 +158,7 @@ def task2():
 
         dir_list.place(relx=0.5, rely=0.25, anchor='center')
         download = Button(root, text='Recieve File', command = lambda: pull_file(pull_start_path))
-        download.place(relx=0.5, rely=0.15, anchor='center')
+        download.place(relx=0.5, rely=0.35, anchor='center')
 
         btn3 = Button(root, text="Volume Up", command=volup)
         btn3.place(relx=0.5, rely=rely3, anchor='center')
