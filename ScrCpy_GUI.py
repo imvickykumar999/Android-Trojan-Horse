@@ -112,10 +112,9 @@ def task2():
         entry = Entry(root, textvariable = event)
         entry.place(relx=0.5, rely=0.14, anchor='center')
 
+        rely3 = rely4 = 0.8
+        rely5 = 0.9
         try:
-            rely3 = 0.8
-            rely4 = 0.8
-            rely5 = 0.9
 
             num_list = Listbox(root, height=8, width=30)
             with open('static/keyevents.json') as f:
@@ -131,18 +130,14 @@ def task2():
             get_num_btn.place(relx=0.5, rely=0.67, anchor='center')
 
         except:
-            rely3 = 0.7
-            rely4 = 0.8
-            rely5 = 0.95
-
-            event = StringVar()
-            btn1 = Entry(root, textvariable = event)
+            btn = StringVar()
+            btn1 = Entry(root, textvariable = btn)
 
             btn1.insert(0, '209') # Open Music App
-            btn1.place(relx=0.5, rely=0.5, anchor='center')
+            btn1.place(relx=0.5, rely=0.6, anchor='center')
 
-            btn2 = Button(root, bg='light green', text = 'Keyevent', command = lambda: submit(event.get()))
-            btn2.place(relx=0.5, rely=0.55, anchor='center')
+            btn2 = Button(root, bg='light green', text = 'Keyevent', command = lambda: submit(btn.get()))
+            btn2.place(relx=0.5, rely=0.65, anchor='center')
 
         path='Download/Telegram/static/'
         event.set(path)
