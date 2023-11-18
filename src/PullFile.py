@@ -37,13 +37,7 @@ def sel():
 
       subpath = path + str(var.get())
       output = os.popen(f'adb shell ls -p {subpath}')
-      
       output = output.read().split('\n')[:-1]
-      subdir = str(var.get()).split('/')[0] + '/'
-      
-      fetch = f'{path}/{subdir}'
-      print(fetch)
-      event.set(fetch)
 
       for widget in Bframe.winfo_children():
          widget.destroy() 
@@ -52,16 +46,15 @@ def sel():
          Bframe, 
          pady=5, 
          padx=10, 
-         text=subdir, 
-         bg="pink",
+         text=var.get(), 
+         bg="light blue",
          command=lambda: bullets(output)
       ).pack()
-      
+
    else:
-      subdir = str(var.get()).split('/')
-      fetch = f'{path}/{subdir}/{var.get()}'
-      print(path)
+      fetch = f'{path}/{var.get()}'
       event.set(fetch)
+      print(fetch)
 
 def bullets(output):
    for widget in Rframe.winfo_children():
