@@ -62,9 +62,9 @@ class Manuipulate_sdcard():
     #     print(f'\nFolder "{path}/static" Pushed.')
 
 
-    def pull_file(self, file='screenshot.png', path='Download/'):        
-        self.device.pull(f"/sdcard/{path}/{file}", f"static/{file}")
-        print(f'\nFile "{path}/{file}" Pulled.')
+    # def pull_file(self, file='screenshot.png', path='Download/'):        
+    #     self.device.pull(f"/sdcard/{path}/{file}", f"static/{file}")
+    #     print(f'\nFile "{path}/{file}" Pulled.')
 
 
 # if __name__ == '__main__':

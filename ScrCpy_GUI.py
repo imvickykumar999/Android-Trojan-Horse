@@ -60,22 +60,44 @@ def task2():
         key = key.split(' : ')[0]
         os.system(f'adb -s {ip} shell input keyevent {key}')
 
-    def UploadAction(push_stop_path='Download/Telegram/static/'):
+    def pull_file(pull_start_path='Download/Telegram/static/'):        
+        client = AdbClient(host="127.0.0.1", port=5037)
+        device = client.device(f'{ip}:5555')
+
+        output = os.popen(f'adb shell ls -p /sdcard/{pull_start_path}')
+        output = output.read().split('\n')[:-1]
+        print(output)
+
+        try:
+            file = os.path.basename(output)
+            print(f'\n>>> Receiving {file} ...')
+            device.pull(f"/sdcard/{pull_start_path}/{file}", f"static/{file}")
+            print(f'\tRecieved Successfully.')
+
+        except:
+            print(f'\tFile NOT Recieved.')
+            pass
+
+    def push_file(push_stop_path='Download/Telegram/static/'):
         client = AdbClient(host="127.0.0.1", port=5037)
         device = client.device(f'{ip}:5555')
 
         push_start_file = filedialog.askopenfilename()
-        file = os.path.basename(push_start_file)
+        try:
+            file = os.path.basename(push_start_file)
 
-        if file.split('.')[-1] in ['apk', ]:
-            print(f'\n>>> Installing {file}...')
-            device.install(push_start_file)
-            print(f'\n>>>\tInstalled.')
+            if file.split('.')[-1] in ['apk', ]:
+                print(f'\n>>> Installing {file}...')
+                device.install(push_start_file)
+                print(f'\n>>>\tInstalled.')
 
-        else:
-            print(f'\n>>> Sending {file} ...')
-            device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
-            print(f'\n>>>\tSent.')
+            else:
+                print(f'\n>>> Sending {file} ...')
+                device.push(f"{push_start_file}", f"/sdcard/{push_stop_path}/{file}")
+                print(f'\tSent Successfully.')
+        except:
+            print(f'\tFile NOT Selected.')
+            pass
  
     while True:
         root = Tk()
@@ -94,7 +116,7 @@ def task2():
             frame.pack(fill="both", expand=True)
 
         try:
-            rely3 = 0.7
+            rely3 = 0.73
             rely4 = 0.8
             rely5 = 0.9
 
@@ -107,27 +129,31 @@ def task2():
                 k = j.split('adb shell input keyevent ')
                 num_list.insert(k[1], f'{k[1]} : {i.split("key_")[1]}')
 
-            num_list.place(relx=0.5, rely=0.4, anchor='center')
+            num_list.place(relx=0.5, rely=0.42, anchor='center')
             get_num_btn = Button(root, bg='green', text="Run ADB", command=fun)
-            get_num_btn.place(relx=0.5, rely=0.55, anchor='center')
+            get_num_btn.place(relx=0.5, rely=0.57, anchor='center')
 
         except:
-            rely3 = 0.5
-            rely4 = 0.6
-            rely5 = 0.8
+            rely3 = 0.6
+            rely4 = 0.7
+            rely5 = 0.9
 
             event = StringVar()
             btn1 = Entry(root, textvariable = event)
 
             btn1.insert(0, '209') # Open Music App
-            btn1.place(relx=0.5, rely=0.2, anchor='center')
+            btn1.place(relx=0.5, rely=0.3, anchor='center')
 
             btn2 = Button(root, bg='green', text = 'Keyevent', command = lambda: submit(event.get()))
-            btn2.place(relx=0.5, rely=0.3, anchor='center')
+            btn2.place(relx=0.5, rely=0.37, anchor='center')
 
         push_stop_path='Download/Telegram/static/'
-        upload = Button(root, text='Send File', command = lambda: UploadAction(push_stop_path))
-        upload.place(relx=0.5, rely=0.1, anchor='center')
+        upload = Button(root, text='Send File', command = lambda: push_file(push_stop_path))
+        upload.place(relx=0.5, rely=0.08, anchor='center')
+
+        pull_start_path='Download/Telegram/static/'
+        upload = Button(root, text='Recieve File', command = lambda: pull_file(pull_start_path))
+        upload.place(relx=0.5, rely=0.15, anchor='center')
 
         btn3 = Button(root, text="Volume Up", command=volup)
         btn3.place(relx=0.5, rely=rely3, anchor='center')

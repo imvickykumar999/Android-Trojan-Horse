@@ -25,43 +25,34 @@ def on_click():
    name = entry.get()
    os.system(f'adb pull "{name}"')
 
-button = Button(text="Pull File", command=on_click)
+button = Button(root, text="Pull File", command=on_click)
 button.pack(side = TOP)
-
-entry.insert(0, path)
-entry.pack(side = TOP)
 
 def sel():
    global path
-   if str(var.get())[-1] == '/':
+   subpath = path + str(var.get())
+   print(subpath)
 
-      subpath = path + str(var.get())
+   if str(var.get())[-1] == '/':
       output = os.popen(f'adb shell ls -p {subpath}')
       output = output.read().split('\n')[:-1]
-
-      for widget in Bframe.winfo_children():
-         widget.destroy() 
-
-      Button(
-         Bframe, 
-         pady=5, 
-         padx=10, 
-         text=var.get(), 
-         bg="light blue",
-         command=lambda: bullets(output)
-      ).pack()
+      print(output)
 
    else:
-      fetch = f'{path}/{var.get()}'
-      event.set(fetch)
-      print(fetch)
+      event.set(subpath)
 
 def bullets(output):
    for widget in Rframe.winfo_children():
       widget.destroy() 
 
    for i in output:
-      R1 = Radiobutton(Rframe, text=i, variable=var, value=i, command=sel)
+      R1 = Radiobutton(
+         Rframe, 
+         text=i, 
+         value=i, 
+         command=sel,
+         variable=var 
+      )
       var.set(None)
       R1.pack(anchor = 's')
 
