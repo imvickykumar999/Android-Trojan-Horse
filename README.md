@@ -1,7 +1,7 @@
 
-># `SD Card Manipulator` || `scrcpy GUI` || `ADB commands`
+> # `SD Card Manipulator` || `scrcpy GUI`
 >
->![images-2 fill size_2000x1334 v1611688517](https://github.com/imvickykumar999/Android-Trojan-Horse/assets/50515418/8806c02a-a7a3-425b-a241-51917965dc75)
+> ![images-2 fill size_2000x1334 v1611688517](https://github.com/imvickykumar999/Android-Trojan-Horse/assets/50515418/8806c02a-a7a3-425b-a241-51917965dc75)
 
     Watch Tutorial on YouTube: https://www.youtube.com/watch?v=HD-c2H3NoW8
 
@@ -29,7 +29,7 @@ keyevent.json present
 
 <br>
 
-# `One Time USB Connect via Social Engineering`
+## `One Time USB Connect via Social Engineering`
 
 ```bash
 >>> adb devices
