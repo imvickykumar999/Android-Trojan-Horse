@@ -105,6 +105,13 @@ def task2():
             print(f'\tFile NOT Selected.')
             pass
  
+    def back():
+        slash_path = entry.get()
+        slash = slash_path.split('/')
+        slash.pop()
+        slash.pop()
+        event.set('/'.join(slash) + '/')
+
     while True:
         root = Tk()
         root.geometry("300x600")
@@ -116,7 +123,10 @@ def task2():
         dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
         entry = Entry(root, textvariable = event)
-        entry.place(relx=0.5, rely=0.14, anchor='center', width=270)
+        entry.place(relx=0.56, rely=0.14, anchor='center', width=150)
+
+        back_btn = Button(root, bg='orange', text='. . /', command=back)
+        back_btn.place(relx=0.25, rely=0.14, anchor='center')
 
         rely3 = rely4 = 0.8
         rely5 = 0.9
