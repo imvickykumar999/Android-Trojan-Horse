@@ -70,7 +70,7 @@ def task2():
         event.set(f'{pull_start_path}/{file}')
 
         if file[-1] == '/':
-            print(f'\n>>> {pull_start_path}/{file} Selected ...')
+            print(f'\n>>> "{pull_start_path}/{file}" Selected ...')
 
         else:
             try:
@@ -163,10 +163,10 @@ def task2():
             dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
         button = Button(root, bg='light blue', text="Update Folder", command=on_click)
-        button.place(relx=0.3, rely=0.43, anchor='center')
+        button.place(relx=0.33, rely=0.43, anchor='center')
 
         download = Button(root, bg='yellow', text='Receive Selected', command = lambda: pull_file(path))
-        download.place(relx=0.62, rely=0.43, anchor='center')
+        download.place(relx=0.65, rely=0.43, anchor='center')
 
         btn3 = Button(root, text="Volume Up", bg='green', command=volup)
         btn3.place(relx=0.32, rely=rely3, anchor='center')
