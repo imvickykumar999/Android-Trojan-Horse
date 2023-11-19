@@ -1,7 +1,7 @@
 
 from tkinter import *
 import urllib.request
-import os, json, threading
+import os, time, json, threading
 from tkinter import filedialog
 from ppadb.client import Client as AdbClient
 
@@ -51,6 +51,8 @@ def task2():
     def submit():
         try:
             urllib.request.urlretrieve("https://raw.githubusercontent.com/imvickykumar999/Android-Trojan-Horse/main/keyevents.json", "keyevents.json")
+            time.sleep(1)
+            root.destroy()
         except Exception as e:
             print(e)
 
