@@ -1,5 +1,6 @@
 
 from tkinter import *
+import urllib.request
 import os, json, threading
 from tkinter import filedialog
 from ppadb.client import Client as AdbClient
@@ -47,13 +48,10 @@ def task2():
     def voldown():
         os.system(f'adb -s {ip} shell input keyevent 25')
 
-    def submit(x):
-        try: 
-            if x == '': 
-                os.system('keyevents.json')
-            else:
-                os.system(f'adb -s {ip} shell input keyevent {x}')
-        except Exception as e: 
+    def submit():
+        try:
+            urllib.request.urlretrieve("https://raw.githubusercontent.com/imvickykumar999/Android-Trojan-Horse/main/keyevents.json", "keyevents.json")
+        except Exception as e:
             print(e)
 
     def fun():
@@ -149,10 +147,10 @@ def task2():
             btn = StringVar()
             btn1 = Entry(root, textvariable = btn)
 
-            btn1.insert(0, '209') # Open Music App
+            btn1.insert(0, 'keyevent.json')
             btn1.place(relx=0.5, rely=0.6, anchor='center')
 
-            btn2 = Button(root, bg='light green', text = 'Keyevent', command = lambda: submit(btn.get()))
+            btn2 = Button(root, bg='light green', text = 'Download', command=submit)
             btn2.place(relx=0.5, rely=0.65, anchor='center')
 
         path='DCIM/Camera/'
