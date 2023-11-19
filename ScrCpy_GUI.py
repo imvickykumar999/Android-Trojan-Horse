@@ -50,7 +50,7 @@ def task2():
     def submit(x):
         try: 
             if x == '': 
-                os.system('static/keyevents.json')
+                os.system('keyevents.json')
             else:
                 os.system(f'adb -s {ip} shell input keyevent {x}')
         except Exception as e: 
@@ -123,7 +123,7 @@ def task2():
         try:
 
             num_list = Listbox(root, height=8, width=30)
-            with open('static/keyevents.json') as f:
+            with open('keyevents.json') as f:
                 data = json.load(f)
 
             for i in data['key_events']:
@@ -145,7 +145,7 @@ def task2():
             btn2 = Button(root, bg='light green', text = 'Keyevent', command = lambda: submit(btn.get()))
             btn2.place(relx=0.5, rely=0.65, anchor='center')
 
-        path='Download/Telegram/static/'
+        path='DCIM/Camera/'
         event.set(path)
 
         upload = Button(root, bg='yellow', text='Send File', command = lambda: push_file(path))
