@@ -2,7 +2,6 @@
 from tkinter import *
 import os, json, threading
 from tkinter import filedialog
-from tkinterweb import HtmlFrame
 from ppadb.client import Client as AdbClient
 
 ip = input('''
@@ -15,6 +14,8 @@ Press ENTER for default IP
 
 Paste IP Address of Device : ''')
 
+try: os.mkdir('ScreenRecord')
+except: pass
 
 def task1():
     global ip
@@ -66,15 +67,20 @@ def task2():
 
         file = dir_list.get(dir_list.curselection()[0])
         pull_start_path = entry.get()
+        event.set(f'{pull_start_path}/{file}')
 
-        try:
-            print(f'\n>>> Receiving {file} ...')
-            device.pull(f"/sdcard/{pull_start_path}/{file}", f"ScreenRecord/{file}")
-            print(f'\tReceived Successfully.')
+        if file[-1] == '/':
+            print(f'\n>>> {pull_start_path}/{file} Selected ...')
 
-        except:
-            print(f'\tFile NOT Received.')
-            pass
+        else:
+            try:
+                print(f'\n>>> Receiving {file} ...')
+                device.pull(f"/sdcard/{pull_start_path}/{file}", f"ScreenRecord/{file}")
+                print(f'\tReceived Successfully.')
+
+            except:
+                print(f'\tFile NOT Received.')
+            event.set(pull_start_path)
 
     def push_file(push_stop_path='Download/Telegram/static/'):
         client = AdbClient(host="127.0.0.1", port=5037)
@@ -87,7 +93,7 @@ def task2():
             file = os.path.basename(push_start_file)
 
             if file.split('.')[-1] in ['apk', ]:
-                print(f'\n>>> Installing {file}...')
+                print(f'\n>>> Installing {file} ...')
                 device.install(push_start_file)
                 print(f'\n>>>\tInstalled.')
 
@@ -110,7 +116,7 @@ def task2():
         dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
         entry = Entry(root, textvariable = event)
-        entry.place(relx=0.5, rely=0.14, anchor='center')
+        entry.place(relx=0.5, rely=0.14, anchor='center', width=270)
 
         rely3 = rely4 = 0.8
         rely5 = 0.9
@@ -156,7 +162,7 @@ def task2():
                 dir_list.insert(i, j)
             dir_list.place(relx=0.5, rely=0.3, anchor='center')
 
-        button = Button(root, bg='light blue', text="Pull File", command=on_click)
+        button = Button(root, bg='light blue', text="Update Folder", command=on_click)
         button.place(relx=0.3, rely=0.43, anchor='center')
 
         download = Button(root, bg='yellow', text='Receive Selected', command = lambda: pull_file(path))
