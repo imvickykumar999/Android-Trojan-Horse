@@ -10,7 +10,7 @@ ip = input('''
 Press `CTRL + PAUSE/BREAK` keys to exit.
 
 Press ENTER for default IP 
-    192.168.0.103
+    192.168.0.102
 ----------------------------------------
 
 Paste IP Address of Device : ''')
