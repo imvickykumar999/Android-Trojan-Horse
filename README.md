@@ -7,6 +7,42 @@
 
 <br>
 
+# `What is Trojan?`
+    
+A Trojan is a type of malware. 
+
+Trojans, or Trojan horses, are malware that disguise themselves as legitimate programs or software. 
+
+They use social engineering to trick users into installing them. 
+
+<br>
+
+    Once installed, Trojans can perform actions like: 
+
+- Exporting files
+- Modifying data
+- Deleting files
+- Stealing information
+- Sending premium SMS texts.
+
+Trojans can also act as a delivery vehicle for other threats. 
+
+For example, a Trojan can overwrite files on a machine and then send itself to the victim's contact list. 
+
+<br>
+
+    To avoid Trojans, you can: 
+
+- Surf the web carefully
+- Avoid opening email attachments without thinking
+- Only obtain programs from secure sources
+- Keep your operating system up-to-date
+- Use an always-on virus scanner
+  
+Trojans get their name from the hollow wooden horse that the Greeks hid inside of during the Trojan War. 
+
+<br><br>
+
 <table>
 <tr>
 
