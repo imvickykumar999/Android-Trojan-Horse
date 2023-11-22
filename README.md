@@ -7,9 +7,9 @@
 
 <br>
 
-# `What is Trojan?`
-    
-A Trojan is a type of malware. 
+# `What is` [`Trojan`](https://twitter.com/imvickykumar123/status/1727223882665672735)?
+
+    A Trojan is a type of malware. 
 
 Trojans, or Trojan horses, are malware that disguise themselves as legitimate programs or software. 
 
