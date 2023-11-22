@@ -65,16 +65,15 @@ keyevent.json present
 
 <br>
 
-## `One Time USB Connect via Social Engineering`
+## `One Time` [`USB Connect`](https://stackoverflow.com/questions/55076924/how-to-connect-a-device-with-adb-over-wifi-when-making-app-with-flutter#comment119762079_62846441) *via* `Social Engineering`
 
 ```bash
->>> adb devices
-    * daemon not running; starting now at tcp:5037
-    * daemon started successfully
-    List of devices attached
+# Connect via USB
 
 >>> adb tcpip 5555
     restarting in TCP mode port: 5555
+
+# Disconnect USB
 
 >>> adb devices
     List of devices attached
