@@ -1,7 +1,7 @@
 
-> # `SD Card Manipulator` || `scrcpy GUI`
+> # `SD Card Manipulator` || `scrcpy GUI` || `Sensors`
 >
-> ![images-2 fill size_2000x1334 v1611688517](https://github.com/imvickykumar999/Android-Trojan-Horse/assets/50515418/8806c02a-a7a3-425b-a241-51917965dc75)
+> https://github.com/imvickykumar999/Android-Trojan-Horse/assets/50515418/393c2bd3-dcfc-496f-a076-bfb3474d8bf0
 
     Watch Tutorial on YouTube: https://www.youtube.com/watch?v=HD-c2H3NoW8
 
