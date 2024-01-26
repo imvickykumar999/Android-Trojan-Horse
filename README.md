@@ -70,8 +70,8 @@ keyevent.json present
 ```bash
 # Pair device with pairing code
 
-adb pair
-adb.exe: usage: adb pair HOST[:PORT] [PAIRING CODE]
+>>> adb pair
+    adb.exe: usage: adb pair HOST[:PORT] [PAIRING CODE]
 ```
 
 <br>
@@ -99,4 +99,11 @@ adb.exe: usage: adb pair HOST[:PORT] [PAIRING CODE]
 >>> adb pair 192.168.0.103:40535
     Enter pairing code: 230630
     Successfully paired to 192.168.0.103:40535 [guid=adb-RZ8N60JN0EE-DzkZ1Q]
+```
+
+## `Screen Copy`
+
+```bash
+# audio forwarding and recording
+>>> scrcpy --tcpip=192.168.0.102 --audio-source=mic -r "screen recording.mp4"
 ```
