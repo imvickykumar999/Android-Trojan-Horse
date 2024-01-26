@@ -65,6 +65,17 @@ keyevent.json present
 
 <br>
 
+## `Pairing Code` : [`Wireless debugging`](https://stackoverflow.com/a/73605270/11493297)
+
+```bash
+# Pair device with pairing code
+
+adb pair
+adb.exe: usage: adb pair HOST[:PORT] [PAIRING CODE]
+```
+
+<br>
+
 ## `One Time` [`USB Connect`](https://stackoverflow.com/questions/55076924/how-to-connect-a-device-with-adb-over-wifi-when-making-app-with-flutter#comment119762079_62846441) *via* `Social Engineering`
 
 ```bash
