@@ -76,7 +76,7 @@ keyevent.json present
 
 <br>
 
-## `One Time` [`USB Connect`](https://stackoverflow.com/questions/55076924/how-to-connect-a-device-with-adb-over-wifi-when-making-app-with-flutter#comment119762079_62846441) *via* `Social Engineering`
+## `One Time` [`USB Connect`](https://developer.android.com/tools/adb#wireless)
 
 ```bash
 # Connect via USB
@@ -95,10 +95,6 @@ keyevent.json present
 
 >>> adb connect 192.168.0.103:5555
     connected to 192.168.0.103:5555
-
->>> adb pair 192.168.0.103:40535
-    Enter pairing code: 230630
-    Successfully paired to 192.168.0.103:40535 [guid=adb-RZ8N60JN0EE-DzkZ1Q]
 ```
 
 ## `Screen Copy`
