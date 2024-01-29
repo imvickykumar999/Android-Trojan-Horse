@@ -81,6 +81,9 @@ keyevent.json present
 ```bash
 # Connect via USB
 
+>>> adb usb
+    restarting in USB mode
+
 >>> adb tcpip 5555
     restarting in TCP mode port: 5555
 
