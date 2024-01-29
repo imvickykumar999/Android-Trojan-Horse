@@ -78,6 +78,8 @@ keyevent.json present
 
 ## `One Time` [`USB Connect`](https://developer.android.com/tools/adb#wireless)
 
+Restart the adb server by running the commands `adb kill-server` and `adb start-server` in your command prompt 
+
 ```bash
 # Connect via USB
 
